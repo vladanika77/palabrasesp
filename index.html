@@ -757,6 +757,9 @@ function showPicture(word) {
   document.getElementById('pictureWord').textContent = word;
 
   const frame = document.getElementById('pictureFrame');
+  // Очищаємо одразу
+  frame.innerHTML = `<div class="picture-placeholder">${currentCategory.icon}</div>`;
+
   const imgPath = `images/${word.toLowerCase()}.jpg`;
 
   const img = new Image();
