@@ -687,6 +687,11 @@ function loadWord() {
     d.className = 'dot' + (i < currentWordIndex ? ' completed' : i === currentWordIndex ? ' current' : '');
   });
 
+  // Розмір плитки залежить від довжини слова
+  const len = word.replace(/ /g, '').length;
+  const tileSize = len <= 4 ? 200 : len <= 6 ? 160 : len <= 8 ? 130 : len <= 10 ? 105 : 85;
+  const fontSize = len <= 4 ? 7.5 : len <= 6 ? 6 : len <= 8 ? 5 : len <= 10 ? 4 : 3.2;
+
   // Build tiles
   const area = document.getElementById('wordArea');
   area.innerHTML = '';
@@ -695,6 +700,9 @@ function loadWord() {
     tile.className = 'letter-tile ' + (i === 0 ? 'active' : 'inactive');
     tile.id = `tile-${i}`;
     tile.textContent = letter;
+    tile.style.width = tileSize + 'px';
+    tile.style.height = tileSize + 'px';
+    tile.style.fontSize = fontSize + 'rem';
     area.appendChild(tile);
   });
 
