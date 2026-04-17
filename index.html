@@ -349,8 +349,8 @@ body {
 .picture-frame img {
   position: relative;
   z-index: 1;
-  max-width: 90vw;
-  max-height: 75vh;
+  max-width: 95vw;
+  max-height: 85vh;
   object-fit: contain;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -594,16 +594,16 @@ input[type=range].volume-slider {
 const CATEGORIES = [
   { name: 'ANIMALES',        icon: '🐾', words: ['GATO','PERRO','PATO','OSO','LEON','VACA','PEZ','RANA','LOBO','TORO'] },
   { name: 'COMIDA',          icon: '🍽️', words: ['PAN','SOPA','ARROZ','POLLO','QUESO','PIZZA','TACO','FRUTA'] },
-  { name: 'BEBIDAS',         icon: '🥤', words: ['AGUA','LECHE','JUGO','TE','CAFE'] },
+  { name: 'BEBIDAS',         icon: '🥤', words: ['AGUA','LECHE','ZUMO','TE','CAFE'] },
   { name: 'VERDURAS Y FRUTAS', icon: '🥦', words: ['MANZANA','PERA','UVA','LIMON','ZANAHORIA','TOMATE','LECHUGA'] },
   { name: 'COLORES',         icon: '🎨', words: ['ROJO','AZUL','VERDE','NEGRO','BLANCO','ROSA','MORADO','NARANJA'] },
   { name: 'VERBOS',          icon: '💪', words: ['CORRER','SALTAR','COMER','DORMIR','JUGAR','LEER','CANTAR','BAILAR'] },
   { name: 'ADJETIVOS',       icon: '✨', words: ['GRANDE','PEQUENO','BONITO','RAPIDO','LENTO','FUERTE','DULCE'] },
-  { name: 'PRONOMBRES',      icon: '👤', words: ['YO','TU','EL','ELLA','NOSOTROS','ELLOS'] },
+  { name: 'PRONOMBRES',      icon: '👤', words: ['YO','TU','EL','ELLA','NOSOTROS','VOSOTROS','ELLOS'] },
   { name: 'DEPORTES',        icon: '⚽', words: ['FUTBOL','TENIS','NATACION','CICLISMO','BALONCESTO'] },
   { name: 'OBJETOS',         icon: '🏠', words: ['MESA','SILLA','LIBRO','LAPIZ','BOLSA','RELOJ','CAMA'] },
   { name: 'CUERPO',          icon: '🦷', words: ['OJO','NARIZ','BOCA','OREJA','MANO','PIE','CABEZA','BRAZO'] },
-  { name: 'FAMILIA',         icon: '👨‍👩‍👧', words: ['MAMA','PAPA','HERMANO','HERMANA','ABUELO','ABUELA','PRIMO'] },
+  { name: 'FAMILIA',         icon: '👨‍👩‍👧', words: ['MAMA VLADA','ANDRII','HERMANO MISHA','HERMANO DANIA','AMIGA NATASHA','AMIGA NASTIA','ABUELA LUSIA','ABUELA NATASHA','ABUELA TOMA','AMIGA TOMA','AMIGA TANIA','AMIGA LERA','AMIGA LUDA','AMIGO JOSE'] },
   { name: 'NÚMEROS',         icon: '🔢', words: ['UNO','DOS','TRES','CUATRO','CINCO','SEIS','SIETE','OCHO','NUEVE','DIEZ'] },
   { name: 'PALABRAS AMABLES',icon: '🙏', words: ['GRACIAS','POR FAVOR','PERDON','HOLA','ADIOS','BUENAS'] },
   { name: 'LUGARES',         icon: '🏛️', words: ['CASA','COLEGIO','PARQUE','TIENDA','HOSPITAL','BIBLIOTECA'] },
@@ -615,7 +615,7 @@ const CATEGORIES = [
   { name: 'DIBUJOS Y JUEGOS',icon: '🎬', words: ['PEPPA','ELSA','MARIO','SONIC','MINNIE','WOODY'] },
   { name: 'CASA',            icon: '🏡', words: ['COCINA','BANO','SALON','DORMITORIO','JARDIN','PUERTA','VENTANA'] },
   { name: 'TRANSPORTE',      icon: '🚗', words: ['COCHE','BUS','TREN','AVION','BARCO','BICI','MOTO'] },
-  { name: '🔒 PRÓXIMO',      icon: '🔒', words: [], locked: true },
+  { name: 'FIESTAS',         icon: '🎉', words: ['NAVIDAD','CUMPLEANOS','PASCUA','HALLOWEEN','CARNAVAL','REYES'] },
   { name: '🔒 PRÓXIMO',      icon: '🔒', words: [], locked: true },
 ];
 
@@ -631,7 +631,14 @@ let audioCtx = null;
 let musicGain = null;
 let musicInterval = null;
 
-// ========== INIT ==========
+const COLOR_MAP = {
+  'ROJO': '#FF1744', 'AZUL': '#2196D3', 'VERDE': '#00C853',
+  'NEGRO': '#212121', 'BLANCO': '#F5F5F5', 'ROSA': '#FF4081',
+  'MORADO': '#9C27B0', 'NARANJA': '#FF6D00', 'AMARILLO': '#FFD700',
+  'MARRON': '#795548', 'GRIS': '#9E9E9E', 'CELESTE': '#87CEEB'
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
   buildLibrary();
   initAudio();
@@ -735,7 +742,7 @@ function onKeyDown(e) {
       // Word complete!
       setTimeout(() => {
         speakText(word);
-        setTimeout(() => showPicture(word), 800);
+        setTimeout(() => showPicture(word), 400);
       }, 200);
     } else {
       const nextTile = document.getElementById(`tile-${currentLetterIndex}`);
@@ -765,10 +772,25 @@ function showPicture(word) {
   document.getElementById('pictureWord').textContent = word;
 
   const frame = document.getElementById('pictureFrame');
+
+  // Якщо категорія COLORES — показуємо кольоровий екран
+  if (currentCategory.name === 'COLORES' && COLOR_MAP[word]) {
+    const color = COLOR_MAP[word];
+    const textColor = (word === 'BLANCO') ? '#333' : 'white';
+    frame.innerHTML = `
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:${color};display:flex;align-items:center;justify-content:center;">
+        <div style="font-family:'Fredoka One',cursive;font-size:8rem;color:${textColor};text-shadow:3px 3px 0 rgba(0,0,0,0.15);letter-spacing:4px;">${word}</div>
+      </div>
+    `;
+    showScreen('pictureScreen');
+    speakText(word);
+    return;
+  }
+
   // Очищаємо одразу
   frame.innerHTML = `<div class="picture-placeholder">${currentCategory.icon}</div>`;
 
-  const imgPath = `images/${word.toLowerCase()}.jpg`;
+  const imgPath = `images/${word.toLowerCase().replace(/ /g,'_')}.jpg`;
 
   const img = new Image();
   img.onload = () => {
