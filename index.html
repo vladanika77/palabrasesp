@@ -349,8 +349,8 @@ body {
 .picture-frame img {
   position: relative;
   z-index: 1;
-  max-width: 95vw;
-  max-height: 85vh;
+  max-width: 90vw;
+  max-height: 75vh;
   object-fit: contain;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -592,32 +592,39 @@ input[type=range].volume-slider {
 <script>
 // ========== DATA ==========
 const CATEGORIES = [
-  { name: 'ANIMALES',        icon: '🐾', words: ['GATO','PERRO','PATO','OSO','LEON','VACA','PEZ','RANA','LOBO','TORO'] },
+  { name: 'ANIMALES',        icon: '🐾', words: ['GATO','PERRO','PATO','OSO','LEON','VACA','PEZ','RANA','LOBO','TORO','CABALLO','CABRA','CEBRA','ZORRO','PALOMA','DELFIN','MONO','OVEJA','ARDILLA','BURRO','CONEJO','GALLO','JIRAFA','FLAMENCO','SERPIENTE','GALLINA','TORTUGA','TIGRE','ELEFANTE'] },
   { name: 'COMIDA',          icon: '🍽️', words: ['PAN','SOPA','ARROZ','POLLO','QUESO','PIZZA','TACO','FRUTA'] },
   { name: 'BEBIDAS',         icon: '🥤', words: ['AGUA','LECHE','ZUMO','TE','CAFE'] },
   { name: 'VERDURAS Y FRUTAS', icon: '🥦', words: ['MANZANA','PERA','UVA','LIMON','ZANAHORIA','TOMATE','LECHUGA'] },
   { name: 'COLORES',         icon: '🎨', words: ['ROJO','AZUL','VERDE','NEGRO','BLANCO','ROSA','MORADO','NARANJA'] },
-  { name: 'VERBOS',          icon: '💪', words: ['CORRER','SALTAR','COMER','DORMIR','JUGAR','LEER','CANTAR','BAILAR'] },
+  { name: 'VERBOS',          icon: '💪', words: ['CORRER','SALTAR','COMER','DORMIR','JUGAR','LEER','CANTAR','BAILAR','ESTUDIA','BEBE','LLORA','SONRIE','EXTRAÑA','ESTA TRISTE','DIBUJA','ESCRIBE','PIENSA','PASEA','IMPRIME'] },
   { name: 'ADJETIVOS',       icon: '✨', words: ['GRANDE','PEQUENO','BONITO','RAPIDO','LENTO','FUERTE','DULCE'] },
   { name: 'PRONOMBRES',      icon: '👤', words: ['YO','TU','EL','ELLA','NOSOTROS','VOSOTROS','ELLOS'] },
   { name: 'DEPORTES',        icon: '⚽', words: ['FUTBOL','TENIS','NATACION','CICLISMO','BALONCESTO'] },
   { name: 'OBJETOS',         icon: '🏠', words: ['MESA','SILLA','LIBRO','LAPIZ','BOLSA','RELOJ','CAMA'] },
   { name: 'CUERPO',          icon: '🦷', words: ['OJO','NARIZ','BOCA','OREJA','MANO','PIE','CABEZA','BRAZO'] },
-  { name: 'FAMILIA',         icon: '👨‍👩‍👧', words: ['MAMA VLADA','ANDRII','HERMANO MISHA','HERMANO DANIA','AMIGA NATASHA','AMIGA NASTIA','ABUELA LUSIA','ABUELA NATASHA','ABUELA TOMA','AMIGA TOMA','AMIGA TANIA','AMIGA LERA','AMIGA LUDA','AMIGO JOSE'] },
+  { name: 'FAMILIA',         icon: '👨‍👩‍👧', words: ['MAMA VLADA','ANDRII','ANDRII SYMONENKO','HERMANO MISHA','HERMANO DANIA','AMIGA NATASHA','AMIGA NASTIA','ABUELA LUSIA','ABUELA NATASHA','ABUELA TOMA','AMIGA TOMA','AMIGA TANIA','AMIGA LERA','AMIGA LUDA','AMIGO JOSE','ABUELO VOVA'] },
   { name: 'NÚMEROS',         icon: '🔢', words: ['UNO','DOS','TRES','CUATRO','CINCO','SEIS','SIETE','OCHO','NUEVE','DIEZ'] },
   { name: 'PALABRAS AMABLES',icon: '🙏', words: ['GRACIAS','POR FAVOR','PERDON','HOLA','ADIOS','BUENAS'] },
   { name: 'LUGARES',         icon: '🏛️', words: ['CASA','COLEGIO','PARQUE','TIENDA','HOSPITAL','BIBLIOTECA'] },
-  { name: 'TIEMPO',          icon: '⛅', words: ['SOL','LLUVIA','NIEVE','VIENTO','NUBE','TORMENTA'] },
+  { name: 'TIEMPO',          icon: '⛅', words: ['SOL','LLUVIA','NIEVE','VIENTO','NUBE','TORMENTA','ARCOIRIS'] },
   { name: 'EMOCIONES',       icon: '😊', words: ['FELIZ','TRISTE','ENOJADO','ASUSTADO','SORPRENDIDO','CANSADO'] },
-  { name: 'DÍA',             icon: '🕐', words: ['MANANA','TARDE','NOCHE','HOY','AYER','LUNES','MARTES','MIERCOLES'] },
+  { name: 'DÍA',             icon: '🕐', words: ['MANANA','TARDE','NOCHE','HOY','AYER','LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO','DOMINGO'] },
   { name: 'ROPA',            icon: '👕', words: ['CAMISA','PANTALON','ZAPATO','GORRO','ABRIGO','VESTIDO'] },
   { name: 'EXTRA',           icon: '⭐', words: ['SI','NO','MAS','MENOS','BIEN','MAL','AQUI','ALLA'] },
   { name: 'DIBUJOS Y JUEGOS',icon: '🎬', words: ['PEPPA','ELSA','MARIO','SONIC','MINNIE','WOODY'] },
-  { name: 'CASA',            icon: '🏡', words: ['COCINA','BANO','SALON','DORMITORIO','JARDIN','PUERTA','VENTANA'] },
+  { name: 'CASA',            icon: '🏡', words: ['COCINA','BANO','SALON','DORMITORIO','TERRAZA','PUERTA','VENTANA'] },
   { name: 'TRANSPORTE',      icon: '🚗', words: ['COCHE','BUS','TREN','AVION','BARCO','BICI','MOTO'] },
   { name: 'FIESTAS',         icon: '🎉', words: ['NAVIDAD','CUMPLEANOS','PASCUA','HALLOWEEN','CARNAVAL','REYES'] },
   { name: '🔒 PRÓXIMO',      icon: '🔒', words: [], locked: true },
 ];
+
+const COLOR_MAP = {
+  'ROJO': '#FF1744', 'AZUL': '#2196D3', 'VERDE': '#00C853',
+  'NEGRO': '#212121', 'BLANCO': '#F5F5F5', 'ROSA': '#FF4081',
+  'MORADO': '#9C27B0', 'NARANJA': '#FF6D00', 'AMARILLO': '#FFD700',
+  'MARRON': '#795548', 'GRIS': '#9E9E9E', 'CELESTE': '#87CEEB'
+};
 
 // ========== STATE ==========
 let currentCategory = null;
@@ -631,14 +638,7 @@ let audioCtx = null;
 let musicGain = null;
 let musicInterval = null;
 
-const COLOR_MAP = {
-  'ROJO': '#FF1744', 'AZUL': '#2196D3', 'VERDE': '#00C853',
-  'NEGRO': '#212121', 'BLANCO': '#F5F5F5', 'ROSA': '#FF4081',
-  'MORADO': '#9C27B0', 'NARANJA': '#FF6D00', 'AMARILLO': '#FFD700',
-  'MARRON': '#795548', 'GRIS': '#9E9E9E', 'CELESTE': '#87CEEB'
-};
-
-
+// ========== INIT ==========
 document.addEventListener('DOMContentLoaded', () => {
   buildLibrary();
   initAudio();
